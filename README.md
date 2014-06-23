@@ -32,15 +32,15 @@ If you want to install this software using an alternate method see the website f
 
 ## Make Targets
 
-<b>topo/world-10m.json</b>
+<b>topo/world-10m.topojson</b>
 
 Admin 0 country boundaries at 1:10,000,000 scale.
 
-<b>topo/world-50m.json</b>
+<b>topo/world-50m.topojson</b>
 
 Admin 0 country boundaries at 1:50,000,000 scale.
 
-<b>topo/world-110m.json</b>
+<b>topo/world-110m.topojson</b>
 
 Admin 0 country boundaries at 1:110,000,000 scale.
 
