@@ -69,8 +69,15 @@ shp/ne_%_admin_1_states_provinces_lakes.shp: zip/ne_%_admin_1_states_provinces_l
 	for file in shp/ne_$*_admin_1_states_provinces_lakes_shp.*; do mv $$file shp/ne_$*_admin_1_states_provinces_lakes"$${file#*_shp}"; done
 	touch $@
 
-topo/world-%.json: shp/ne_%_land.shp shp/ne_%_admin_0_countries.shp
+topo/world-10m.topojson: shp/ne_10m_land.shp shp/ne_10m_admin_0_countries.shp
 	mkdir -p $(dir $@)
-	$(TOPOJSON) -o $@.tmp -q 1e5 --id-property=+iso_n3 -- land=shp/ne_$*_land.shp countries=shp/ne_$*_admin_0_countries.shp
+	$(TOPOJSON) -o $@.tmp -q 1e5 --id-property=+iso_n3 --properties ISO_A3,GEOUNIT -- land=shp/ne_10m_land.shp countries=shp/ne_10m_admin_0_countries.shp
 	$(TOPOMERGE) -o $@ --io=land --oo=land --no-key -- $@.tmp
 	rm -f -- $@.tmp
+
+topo/world-%.topojson: shp/ne_%_land.shp shp/ne_%_admin_0_countries.shp
+	mkdir -p $(dir $@)
+	$(TOPOJSON) -o $@.tmp -q 1e5 --id-property=+iso_n3 --properties iso_a3,geounit -- land=shp/ne_$*_land.shp countries=shp/ne_$*_admin_0_countries.shp
+	$(TOPOMERGE) -o $@ --io=land --oo=land --no-key -- $@.tmp
+	rm -f -- $@.tmp
+
